@@ -100,7 +100,7 @@ pub fn run_app(app: Command, settings: Settings, f: impl FnOnce(&ArgMatches)) {
             native_options,
             Box::new(|cc| {
                 klask.setup(cc);
-                Box::new(klask)
+                Ok(Box::new(klask))
             }),
         )
         .unwrap();
@@ -287,7 +287,8 @@ impl Klask<'_> {
                     font: custom_font,
                     index: 0,
                     tweak: Default::default(),
-                },
+                }
+                .into(),
             );
 
             fonts

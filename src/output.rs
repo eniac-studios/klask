@@ -107,8 +107,8 @@ impl Widget for &mut Output {
                 // View
                 ui.vertical(|ui| {
                     if ui.button("Copy output").clicked() {
-                        ui.ctx().output_mut(|o| {
-                            o.copied_text = output
+                        ui.ctx().copy_text(
+                            output
                                 .iter()
                                 .map(|(_, o)| match o {
                                     OutputType::Text(text) => text,
@@ -116,8 +116,8 @@ impl Widget for &mut Output {
                                 })
                                 .flat_map(|text| cansi::v3::categorise_text(text))
                                 .map(|slice| slice.text)
-                                .collect::<String>();
-                        })
+                                .collect::<String>(),
+                        );
                     }
 
                     for (_, o) in output {
